@@ -1,0 +1,137 @@
+package app.pawpaws.features.forgot
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.Image
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
+import app.pawpaws.R
+import app.pawpaws.core.theme.PawBlue
+import app.pawpaws.core.theme.PawDarkText
+import app.pawpaws.core.theme.PawOrange
+
+@Composable
+fun PasswordRecoveryScreen(
+    onNavigateBack: () -> Unit,
+    onNavigateToReset: () -> Unit,
+
+) {
+
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+    var email by remember { mutableStateOf("") }
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+    ) { padding ->
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+        ) {
+
+            //Banner superior
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .background(PawBlue),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.bannerpaws),
+                    contentDescription = "Banner PawPaws",
+                    modifier = Modifier.height(35.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp)
+            ) {
+
+                //Flecha volver
+                IconButton(
+                    onClick = { onNavigateBack() }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Volver"
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(60.dp))
+
+                //Título
+                Text(
+                    text = "Recuperar contraseña",
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = PawDarkText,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                //Campo email
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Correo electrónico") },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(8.dp)
+                )
+
+                Spacer(modifier = Modifier.height(40.dp))
+
+                //Botón enviar link
+                Button(
+                    onClick = {
+                        scope.launch {
+                            if (email.isBlank()) {
+                                snackbarHostState.showSnackbar(
+                                    "Ingresa tu correo electrónico"
+                                )
+                            } else {
+                                snackbarHostState.showSnackbar(
+                                    "Link de recuperación enviado"
+                                )
+                                kotlinx.coroutines.delay(50)
+                                onNavigateToReset()
+                            }
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(55.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = PawOrange
+                    )
+                ) {
+                    Text(
+                        text = "Enviar link   ➜",
+                        fontSize = 18.sp
+                    )
+                }
+            }
+        }
+    }
+}
