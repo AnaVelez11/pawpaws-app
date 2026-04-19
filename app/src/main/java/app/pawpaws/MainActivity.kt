@@ -7,6 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
 import app.pawpaws.core.navigation.AppNavigation
 import app.pawpaws.core.theme.PawPawsTheme
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class MainActivity : ComponentActivity() {
 

@@ -1,33 +1,33 @@
 package app.pawpaws.features.register
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.res.painterResource
-import androidx.compose.foundation.Image
-import app.pawpaws.R
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.material.icons.Icons
 import androidx.compose.ui.Alignment
-import androidx.compose.foundation.clickable
-import androidx.compose.material.icons.filled.ArrowBack
-import kotlinx.coroutines.launch
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-
+import app.pawpaws.R
 import app.pawpaws.core.theme.PawBlue
 import app.pawpaws.core.theme.PawDarkText
 import app.pawpaws.core.theme.PawLinkBlue
 import app.pawpaws.core.theme.PawOrange
 import app.pawpaws.core.utils.RequestResult
+import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterScreen(
@@ -35,7 +35,6 @@ fun RegisterScreen(
     onRegisterSuccess: () -> Unit,
     viewModel: RegisterViewModel = viewModel()
 ) {
-
     val scope = rememberCoroutineScope()
     val nameState by viewModel.name.collectAsState()
     val emailState by viewModel.email.collectAsState()
@@ -45,22 +44,19 @@ fun RegisterScreen(
     val registerResult by viewModel.registerResult.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 
+    val locationNotImplementedMsg = stringResource(R.string.register_location_not_implemented)
 
     LaunchedEffect(registerResult) {
-
         when (registerResult) {
-
             is RequestResult.Success -> {
                 snackbarHostState.showSnackbar("Cuenta creada correctamente")
                 onRegisterSuccess()
             }
-
             is RequestResult.Error -> {
                 snackbarHostState.showSnackbar(
                     (registerResult as RequestResult.Error).message
                 )
             }
-
             else -> {}
         }
     }
@@ -68,8 +64,6 @@ fun RegisterScreen(
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { padding ->
-
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -84,9 +78,8 @@ fun RegisterScreen(
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.bannerpaws),
-                    contentDescription = "Banner PawPaws",
+                    contentDescription = stringResource(R.string.register_cd_banner),
                     modifier = Modifier.height(35.dp)
-
                 )
             }
 
@@ -97,21 +90,19 @@ fun RegisterScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp)
             ) {
-
                 IconButton(
                     onClick = { onNavigateBack() }
                 ) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Volver"
+                        contentDescription = stringResource(R.string.register_cd_back)
                     )
                 }
 
                 Spacer(modifier = Modifier.height(28.dp))
 
-
                 Text(
-                    text = "Crea tu cuenta",
+                    text = stringResource(R.string.register_title),
                     fontSize = 32.sp,
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
@@ -126,18 +117,15 @@ fun RegisterScreen(
                 OutlinedTextField(
                     value = nameState.value,
                     onValueChange = { viewModel.onNameChange(it) },
-                    label = { Text("Nombre completo") },
+                    label = { Text(stringResource(R.string.register_label_name)) },
                     modifier = Modifier.fillMaxWidth(),
-                    isError = nameState.error != null
+                    isError = nameState.error != null,
+                    supportingText = {
+                        nameState.error?.let {
+                            Text(text = it, color = MaterialTheme.colorScheme.error)
+                        }
+                    }
                 )
-
-                nameState.error?.let {
-                    Text(
-                        text = it,
-                        color = MaterialTheme.colorScheme.error,
-                        fontSize = 12.sp
-                    )
-                }
 
                 Spacer(modifier = Modifier.height(6.dp))
 
@@ -145,9 +133,14 @@ fun RegisterScreen(
                 OutlinedTextField(
                     value = emailState.value,
                     onValueChange = { viewModel.onEmailChange(it) },
-                    label = { Text("Correo electrónico") },
+                    label = { Text(stringResource(R.string.register_label_email)) },
                     modifier = Modifier.fillMaxWidth(),
-                    isError = emailState.error != null
+                    isError = emailState.error != null,
+                    supportingText = {
+                        emailState.error?.let {
+                            Text(text = it, color = MaterialTheme.colorScheme.error)
+                        }
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(6.dp))
@@ -156,10 +149,15 @@ fun RegisterScreen(
                 OutlinedTextField(
                     value = passwordState.value,
                     onValueChange = { viewModel.onPasswordChange(it) },
-                    label = { Text("Contraseña") },
+                    label = { Text(stringResource(R.string.register_label_password)) },
                     visualTransformation = PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth(),
-                    isError = passwordState.error != null
+                    isError = passwordState.error != null,
+                    supportingText = {
+                        passwordState.error?.let {
+                            Text(text = it, color = MaterialTheme.colorScheme.error)
+                        }
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(6.dp))
@@ -168,36 +166,39 @@ fun RegisterScreen(
                 OutlinedTextField(
                     value = confirmPasswordState.value,
                     onValueChange = { viewModel.onConfirmPasswordChange(it) },
-                    label = { Text("Confirmar contraseña") },
+                    label = { Text(stringResource(R.string.register_label_confirm_password)) },
                     visualTransformation = PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth(),
-                    isError = confirmPasswordState.error != null
+                    isError = confirmPasswordState.error != null,
+                    supportingText = {
+                        confirmPasswordState.error?.let {
+                            Text(text = it, color = MaterialTheme.colorScheme.error)
+                        }
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(6.dp))
 
-                //Ciudad o código postal
+                // Ciudad o código postal
                 OutlinedTextField(
                     value = cityState.value,
                     onValueChange = { viewModel.onCityChange(it) },
-                    label = { Text("Busca tu ciudad o código postal") },
+                    label = { Text(stringResource(R.string.register_label_city)) },
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                //Link ubicación actual
+                // Link ubicación actual
                 Text(
-                    text = "Usar mi ubicación actual",
+                    text = stringResource(R.string.register_link_location),
                     color = PawLinkBlue,
                     textDecoration = TextDecoration.Underline,
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable {
                             scope.launch {
-                                snackbarHostState.showSnackbar(
-                                    "Función de ubicación no implementada aún"
-                                )
+                                snackbarHostState.showSnackbar(locationNotImplementedMsg)
                             }
                         }
                 )
@@ -208,9 +209,7 @@ fun RegisterScreen(
                 val scope = rememberCoroutineScope()
 
                 Button(
-                    onClick = {
-                        viewModel.register()
-                    },
+                    onClick = { viewModel.register() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(55.dp),
@@ -220,7 +219,7 @@ fun RegisterScreen(
                     )
                 ) {
                     Text(
-                        text = "Crear cuenta   ➜",
+                        text = stringResource(R.string.register_button_text),
                         fontSize = 18.sp
                     )
                 }

@@ -1,9 +1,9 @@
 package app.pawpaws.features.forgot
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -11,27 +11,45 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.launch
+import androidx.lifecycle.viewmodel.compose.viewModel
 import app.pawpaws.R
 import app.pawpaws.core.theme.PawBlue
 import app.pawpaws.core.theme.PawDarkText
 import app.pawpaws.core.theme.PawOrange
+import app.pawpaws.core.utils.RequestResult
 
 @Composable
 fun PasswordRecoveryScreen(
     onNavigateBack: () -> Unit,
     onNavigateToReset: () -> Unit,
-
+    viewModel: PasswordRecoveryViewModel = viewModel()
 ) {
+    val email by viewModel.email.collectAsState()
+    val recoveryResult by viewModel.recoveryResult.collectAsState()
 
     val snackbarHostState = remember { SnackbarHostState() }
-    val scope = rememberCoroutineScope()
+    val isLoading = recoveryResult is RequestResult.Loading
 
-    var email by remember { mutableStateOf("") }
+    // Reaccionar al resultado
+    LaunchedEffect(recoveryResult) {
+        when (val result = recoveryResult) {
+            is RequestResult.Success -> {
+                snackbarHostState.showSnackbar("Link de recuperación enviado")
+                viewModel.resetResult()
+                onNavigateToReset()
+            }
+            is RequestResult.Error -> {
+                snackbarHostState.showSnackbar(result.message)
+                viewModel.resetResult()
+            }
+            else -> Unit
+        }
+    }
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
@@ -43,7 +61,7 @@ fun PasswordRecoveryScreen(
                 .padding(padding)
         ) {
 
-            //Banner superior
+            // Banner superior
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -66,21 +84,19 @@ fun PasswordRecoveryScreen(
                     .padding(horizontal = 24.dp)
             ) {
 
-                //Flecha volver
-                IconButton(
-                    onClick = { onNavigateBack() }
-                ) {
+                // Flecha volver
+                IconButton(onClick = onNavigateBack) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Volver"
+                        contentDescription = stringResource(R.string.passwordrecovery_back)
                     )
                 }
 
                 Spacer(modifier = Modifier.height(60.dp))
 
-                //Título
+                // Título
                 Text(
-                    text = "Recuperar contraseña",
+                    text = stringResource(R.string.passwordrecovery_title),
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     color = PawDarkText,
@@ -90,46 +106,42 @@ fun PasswordRecoveryScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                //Campo email
+                // Campo email
                 OutlinedTextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    label = { Text("Correo electrónico") },
+                    value = email.value,
+                    onValueChange = { viewModel.onEmailChange(it) },
+                    label = { Text(stringResource(R.string.passwordrecovery_email_label)) },
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp)
+                    shape = RoundedCornerShape(8.dp),
+                    singleLine = true,
+                    isError = email.error != null,
+                    supportingText = {
+                        email.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+                    },
+                    enabled = !isLoading
                 )
 
                 Spacer(modifier = Modifier.height(40.dp))
 
-                //Botón enviar link
+                // Botón enviar link
                 Button(
-                    onClick = {
-                        scope.launch {
-                            if (email.isBlank()) {
-                                snackbarHostState.showSnackbar(
-                                    "Ingresa tu correo electrónico"
-                                )
-                            } else {
-                                snackbarHostState.showSnackbar(
-                                    "Link de recuperación enviado"
-                                )
-                                kotlinx.coroutines.delay(50)
-                                onNavigateToReset()
-                            }
-                        }
-                    },
+                    onClick = { viewModel.sendRecoveryLink() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(55.dp),
                     shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = PawOrange
-                    )
+                    colors = ButtonDefaults.buttonColors(containerColor = PawOrange),
+                    enabled = !isLoading
                 ) {
-                    Text(
-                        text = "Enviar link   ➜",
-                        fontSize = 18.sp
-                    )
+                    if (isLoading) {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.size(24.dp),
+                            strokeWidth = 2.dp
+                        )
+                    } else {
+                        Text(text = stringResource(R.string.passwordrecovery_send_button), fontSize = 18.sp)
+                    }
                 }
             }
         }

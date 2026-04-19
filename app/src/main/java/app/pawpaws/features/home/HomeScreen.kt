@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,7 +50,7 @@ fun HomeScreen(
             // Logo centrado
             Image(
                 painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Logo PawPaws",
+                contentDescription = stringResource(R.string.home_logo_description),
                 modifier = Modifier
                     .align(Alignment.Center)
                     .size(400.dp),
@@ -101,7 +102,7 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(60.dp))
 
                 Text(
-                    text = "Bienvenido",
+                    text = stringResource(R.string.home_welcome),
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
                     color = PawDarkText
@@ -110,7 +111,7 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = "Somos PawPaws aquí podrás encontrar mascotas en adopción, reportar perdidos y ayudar a tu comunidad.",
+                    text = stringResource(R.string.home_description),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = PawGrayText
@@ -131,7 +132,7 @@ fun HomeScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Default.ArrowForward,
-                        contentDescription = "➜",
+                        contentDescription = stringResource(R.string.home_arrow_description),
                         tint = Color.White,
                         modifier = Modifier.size(40.dp)
                     )

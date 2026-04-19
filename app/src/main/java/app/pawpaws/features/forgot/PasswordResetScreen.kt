@@ -1,46 +1,63 @@
 package app.pawpaws.features.forgot
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.*
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.res.painterResource
-import kotlinx.coroutines.launch
-
+import androidx.lifecycle.viewmodel.compose.viewModel
 import app.pawpaws.R
 import app.pawpaws.core.theme.PawBlue
 import app.pawpaws.core.theme.PawDarkText
 import app.pawpaws.core.theme.PawOrange
+import app.pawpaws.core.utils.RequestResult
 
 @Composable
 fun PasswordResetScreen(
     onNavigateBack: () -> Unit,
-    onPasswordResetSuccess: () -> Unit
+    onPasswordResetSuccess: () -> Unit,
+    viewModel: PasswordResetViewModel = viewModel()
 ) {
+    val digit1 by viewModel.digit1.collectAsState()
+    val digit2 by viewModel.digit2.collectAsState()
+    val digit3 by viewModel.digit3.collectAsState()
+    val digit4 by viewModel.digit4.collectAsState()
+    val digit5 by viewModel.digit5.collectAsState()
+    val newPassword by viewModel.newPassword.collectAsState()
+    val resetResult by viewModel.resetResult.collectAsState()
 
     val snackbarHostState = remember { SnackbarHostState() }
-    val scope = rememberCoroutineScope()
+    val isLoading = resetResult is RequestResult.Loading
 
-    // 5 dígitos
-    var digit1 by remember { mutableStateOf("") }
-    var digit2 by remember { mutableStateOf("") }
-    var digit3 by remember { mutableStateOf("") }
-    var digit4 by remember { mutableStateOf("") }
-    var digit5 by remember { mutableStateOf("") }
-
-    var newPassword by remember { mutableStateOf("") }
+    // Reaccionar al resultado
+    LaunchedEffect(resetResult) {
+        when (val result = resetResult) {
+            is RequestResult.Success -> {
+                snackbarHostState.showSnackbar("Contraseña actualizada correctamente")
+                viewModel.resetResult()
+                onPasswordResetSuccess()
+            }
+            is RequestResult.Error -> {
+                snackbarHostState.showSnackbar(result.message)
+                viewModel.resetResult()
+            }
+            else -> Unit
+        }
+    }
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
@@ -52,7 +69,7 @@ fun PasswordResetScreen(
                 .padding(padding)
         ) {
 
-            //Banner
+            // Banner
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -76,17 +93,17 @@ fun PasswordResetScreen(
             ) {
 
                 // Flecha
-                IconButton(onClick = { onNavigateBack() }) {
+                IconButton(onClick = onNavigateBack) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Volver"
+                        contentDescription = stringResource(R.string.passwordreset_back)
                     )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Restablecer contraseña",
+                    text = stringResource(R.string.passwordreset_title),
                     fontSize = 26.sp,
                     fontWeight = FontWeight.Bold,
                     color = PawDarkText,
@@ -97,44 +114,47 @@ fun PasswordResetScreen(
                 Spacer(modifier = Modifier.height(32.dp))
 
                 Text(
-                    text = "Ingresa el código de 5 dígitos enviado a tu correo",
+                    text = stringResource(R.string.passwordreset_description),
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                //Código OTP
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
+                // Código OTP — 5 cajas
+                val digits = listOf(digit1, digit2, digit3, digit4, digit5)
 
-                    listOf(
-                        digit1 to { value: String -> digit1 = value },
-                        digit2 to { value: String -> digit2 = value },
-                        digit3 to { value: String -> digit3 = value },
-                        digit4 to { value: String -> digit4 = value },
-                        digit5 to { value: String -> digit5 = value }
-                    ).forEach { (digit, onChange) ->
-
-                        OutlinedTextField(
-                            value = digit,
-                            onValueChange = {
-                                if (it.length <= 1 && it.all { char -> char.isDigit() }) {
-                                    onChange(it)
-                                }
-                            },
-                            modifier = Modifier.width(55.dp),
-                            singleLine = true,
-                            textStyle = LocalTextStyle.current.copy(
-                                textAlign = TextAlign.Center,
-                                fontSize = 20.sp
-                            ),
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = KeyboardType.Number
-                            ),
-                            shape = RoundedCornerShape(8.dp)
+                Column {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        digits.forEachIndexed { index, field ->
+                            OutlinedTextField(
+                                value = field.value,
+                                onValueChange = { viewModel.onDigitChange(index, it) },
+                                modifier = Modifier.width(55.dp),
+                                singleLine = true,
+                                textStyle = LocalTextStyle.current.copy(
+                                    textAlign = TextAlign.Center,
+                                    fontSize = 20.sp
+                                ),
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = KeyboardType.Number
+                                ),
+                                shape = RoundedCornerShape(8.dp),
+                                isError = index == 0 && digit1.error != null,
+                                enabled = !isLoading
+                            )
+                        }
+                    }
+                    // Error del código (se almacena en digit1)
+                    digit1.error?.let {
+                        Text(
+                            text = it,
+                            color = MaterialTheme.colorScheme.error,
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.padding(start = 4.dp, top = 4.dp)
                         )
                     }
                 }
@@ -143,54 +163,41 @@ fun PasswordResetScreen(
 
                 // Nueva contraseña
                 OutlinedTextField(
-                    value = newPassword,
-                    onValueChange = { newPassword = it },
-                    label = { Text("Nueva contraseña") },
+                    value = newPassword.value,
+                    onValueChange = { viewModel.onNewPasswordChange(it) },
+                    label = { Text(stringResource(R.string.passwordreset_new_password_label)) },
                     visualTransformation = PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp)
+                    shape = RoundedCornerShape(8.dp),
+                    singleLine = true,
+                    isError = newPassword.error != null,
+                    supportingText = {
+                        newPassword.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+                    },
+                    enabled = !isLoading
                 )
 
                 Spacer(modifier = Modifier.height(40.dp))
 
                 // Botón confirmar
                 Button(
-                    onClick = {
-                        scope.launch {
-
-                            val fullCode = digit1 + digit2 + digit3 + digit4 + digit5
-
-                            when {
-                                fullCode.length != 5 -> {
-                                    snackbarHostState.showSnackbar(
-                                        "Ingresa el código completo"
-                                    )
-                                }
-
-                                newPassword.length < 6 -> {
-                                    snackbarHostState.showSnackbar(
-                                        "La contraseña debe tener mínimo 6 caracteres"
-                                    )
-                                }
-
-                                else -> {
-                                    snackbarHostState.showSnackbar(
-                                        "Contraseña actualizada correctamente"
-                                    )
-                                    onPasswordResetSuccess()
-                                }
-                            }
-                        }
-                    },
+                    onClick = { viewModel.confirmReset() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(55.dp),
                     shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = PawOrange
-                    )
+                    colors = ButtonDefaults.buttonColors(containerColor = PawOrange),
+                    enabled = !isLoading
                 ) {
-                    Text("Confirmar cambio")
+                    if (isLoading) {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.size(24.dp),
+                            strokeWidth = 2.dp
+                        )
+                    } else {
+                        Text(stringResource(R.string.passwordreset_confirm_button))
+                    }
                 }
             }
         }

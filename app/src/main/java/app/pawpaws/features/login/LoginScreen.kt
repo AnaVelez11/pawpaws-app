@@ -1,6 +1,8 @@
 package app.pawpaws.features.login
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -8,53 +10,47 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.runtime.collectAsState
+import androidx.hilt.navigation.compose.hiltViewModel
 import app.pawpaws.R
-import app.pawpaws.core.theme.PawOrange
-import app.pawpaws.core.theme.PawGrayText
+import app.pawpaws.core.theme.PawBlue
+import app.pawpaws.core.theme.PawDarkText
 import app.pawpaws.core.theme.PawLinkBlue
-import androidx.compose.foundation.text.ClickableText
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.lifecycle.viewmodel.compose.viewModel
+import app.pawpaws.core.theme.PawOrange
 import app.pawpaws.core.utils.RequestResult
-
+import app.pawpaws.domain.model.enums.Rol
 
 @Composable
 fun LoginScreen(
     onNavigateToRegister: () -> Unit,
     onNavigateToForgotPassword: () -> Unit,
-    onLoginSuccess: () -> Unit,
-    viewModel : LoginViewModel = viewModel()
+    onLoginSuccess: (Rol) -> Unit,
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
-
-    val emailState by viewModel.email.collectAsState()
+    val emailState    by viewModel.email.collectAsState()
     val passwordState by viewModel.password.collectAsState()
-    val loginResult by viewModel.loginResult.collectAsState()
+    val loginResult   by viewModel.loginResult.collectAsState()
+
     val snackbarHostState = remember { SnackbarHostState() }
+    val isLoading = loginResult is RequestResult.Loading
 
     LaunchedEffect(loginResult) {
-
-        when (loginResult) {
-
+        when (val result = loginResult) {
             is RequestResult.Success -> {
-                onLoginSuccess()
+                onLoginSuccess(result.data)
+                viewModel.resetResult()
             }
-
             is RequestResult.Error -> {
-                snackbarHostState.showSnackbar(
-                    (loginResult as RequestResult.Error).message
-                )
+                snackbarHostState.showSnackbar(result.message)
+                viewModel.resetResult()
             }
-
-            else -> {}
+            else -> Unit
         }
     }
 
@@ -66,130 +62,121 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(horizontal = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Spacer(modifier = Modifier.height(60.dp))
-
-            Image(
-                painter = painterResource(id = R.drawable.logopaws),
-                contentDescription = "Logo",
-                modifier = Modifier.size(220.dp)
-            )
-
-            Spacer(modifier = Modifier.height(40.dp))
-
-            // Email
-            OutlinedTextField(
-                value = emailState.value,
-                onValueChange = { viewModel.onEmailChange(it) },
-                label = { Text("Correo electrónico") },
-                modifier = Modifier.fillMaxWidth(),
-                isError = emailState.error != null,
-            )
-            emailState.error?.let {
-                Text(
-                    text = it,
-                    color = MaterialTheme.colorScheme.error,
-                    fontSize = 12.sp
-                )
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Password
-            OutlinedTextField(
-                value = passwordState.value,
-                onValueChange = { viewModel.onPasswordChange(it) },
-                label = { Text("Contraseña") },
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth(),
-                isError = passwordState.error != null
-            )
-            passwordState.error?.let {
-                Text(
-                    text = it,
-                    color = MaterialTheme.colorScheme.error,
-                    fontSize = 12.sp
-                )
-            }
-            Spacer(modifier = Modifier.height(12.dp))
-
-            ClickableText(
-                modifier = Modifier.align(Alignment.End),
-                text = buildAnnotatedString {
-                    withStyle(
-                        style = SpanStyle(
-                            color = PawLinkBlue,
-                            textDecoration = TextDecoration.Underline
-                        )
-                    ) {
-                        append("¿Olvidaste tu contraseña?")
-                    }
-                },
-                onClick = {
-                    onNavigateToForgotPassword()
-                }
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Button(
-                onClick = {
-                    viewModel.login()
-                },
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(55.dp),
-                shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = PawOrange
-                )
+                    .height(100.dp)
+                    .background(PawBlue),
+                contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "Iniciar sesión   ➜",
-                    fontSize = 18.sp
+                Image(
+                    painter = painterResource(id = R.drawable.bannerpaws),
+                    contentDescription = stringResource(R.string.login_banner_description),
+                    modifier = Modifier.height(35.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Text(
-                text = "--------¿Nuevo en PawPaws?---------",
-                fontSize = 14.sp,
-                color = PawGrayText
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            OutlinedButton(
-                onClick = { onNavigateToRegister() },
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(55.dp),
-                shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = PawOrange
-                )
+                    .padding(horizontal = 24.dp)
             ) {
+
+                Spacer(modifier = Modifier.height(40.dp))
+
                 Text(
-                    text = "Crear cuenta",
-                    fontSize = 18.sp,
+                    text = stringResource(R.string.login_title),
+                    fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
+                    color = PawDarkText,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
 
+                Spacer(modifier = Modifier.height(32.dp))
+
+                OutlinedTextField(
+                    value = emailState.value,
+                    onValueChange = { viewModel.onEmailChange(it) },
+                    label = { Text(stringResource(R.string.login_email_label)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(8.dp),
+                    singleLine = true,
+                    isError = emailState.error != null,
+                    supportingText = {
+                        emailState.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+                    },
+                    enabled = !isLoading
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = passwordState.value,
+                    onValueChange = { viewModel.onPasswordChange(it) },
+                    label = { Text(stringResource(R.string.login_password_label)) },
+                    visualTransformation = PasswordVisualTransformation(),
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(8.dp),
+                    singleLine = true,
+                    isError = passwordState.error != null,
+                    supportingText = {
+                        passwordState.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+                    },
+                    enabled = !isLoading
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = stringResource(R.string.login_forgot_password),
+                    color = PawLinkBlue,
+                    textDecoration = TextDecoration.Underline,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onNavigateToForgotPassword() },
+                    textAlign = TextAlign.End
+                )
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Button(
+                    onClick = { viewModel.login() },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(55.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = PawOrange),
+                    enabled = !isLoading
+                ) {
+                    if (isLoading) {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.size(24.dp),
+                            strokeWidth = 2.dp
+                        )
+                    } else {
+                        Text(stringResource(R.string.login_button_text), fontSize = 18.sp)
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(stringResource(R.string.login_no_account), color = PawDarkText)
+                    Text(
+                        text = stringResource(R.string.login_register),
+                        color = PawLinkBlue,
+                        textDecoration = TextDecoration.Underline,
+                        modifier = Modifier.clickable { onNavigateToRegister() }
                     )
+                }
             }
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            // Texto legal
-            Text(
-                text = "Al continuar, acepta nuestros Términos de Servicio y Política de Privacidad",
-                fontSize = 12.sp,
-                color = PawGrayText,
-                textAlign = TextAlign.Center
-            )
         }
     }
 }

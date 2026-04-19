@@ -1,3 +1,524 @@
 <resources>
     <string name="app_name">PawPaws</string>
+
+    <string name="admin_feed_title">Publicaciones</string>
+    <string name="admin_feed_count_pending">%1$d por revisar</string>
+    <string name="admin_feed_search_placeholder">Buscar publicación…</string>
+    <string name="admin_feed_empty">Sin publicaciones pendientes</string>
+    <string name="admin_feed_unknown_user">Usuario</string>
+    <string name="admin_feed_default_city">Armenia</string>
+
+    <string name="tipo_adopcion">Adopción</string>
+    <string name="tipo_perdido">Perdido</string>
+    <string name="tipo_encontrado">Encontrado</string>
+    <string name="badge_urgente">URGENTE</string>
+    <string name="time_ago_short">Hace 2h</string>
+
+    <string name="btn_revisar">Revisar</string>
+
+    <string name="cd_search_icon">Icono de búsqueda</string>
+    <string name="cd_clear_search">Limpiar búsqueda</string>
+
+    <string name="historial_title">Historial de acciones</string>
+    <string name="historial_empty">Sin acciones registradas</string>
+    <string name="historial_label_moderador">Mod: %1$s</string>
+
+    <string name="accion_advertencia">Advertencia</string>
+    <string name="accion_suspension_temporal">Suspensión Temporal</string>
+    <string name="accion_suspension_permanente">Suspensión Permanente</string>
+    <string name="accion_aprobacion">Publicación Aprobada</string>
+    <string name="accion_rechazo">Publicación Rechazada</string>
+
+    <string name="cd_volver">Volver</string>
+
+    <!-- Panel Screen -->
+    <string name="panel_title">Panel</string>
+    <string name="panel_metrics_header">Métricas de hoy</string>
+    <string name="panel_metrics_description">Resumen de actividad de moderación de mascotas</string>
+    <string name="panel_metric_pending">Pendientes</string>
+    <string name="panel_metric_approved">Aprobadas</string>
+    <string name="panel_metric_rejected">Rechazadas</string>
+    <string name="panel_metric_reports">Reportes</string>
+    <string name="panel_avg_review_time_label">Tiempo promedio de revisión</string>
+    <string name="panel_avg_review_time_value">~2h 15min</string>
+    <string name="panel_weekly_activity">Actividad semanal</string>
+    <string name="panel_btn_history">Historial de acciones</string>
+    <string name="panel_recent_actions">Acciones recientes</string>
+    <string name="panel_day_monday">L</string>
+    <string name="panel_day_tuesday">M</string>
+    <string name="panel_day_wednesday">X</string>
+    <string name="panel_day_thursday">J</string>
+    <string name="panel_day_friday">V</string>
+    <string name="panel_day_saturday">S</string>
+    <string name="panel_day_sunday">D</string>
+
+    <!-- Reportes Screen -->
+    <string name="reporte_title">Reportes</string>
+    <string name="reporte_pending_count">%1$d pendientes por revisar</string>
+    <string name="reporte_tab_publications">Publicaciones</string>
+    <string name="reporte_tab_users">Usuarios</string>
+    <string name="reporte_tab_comments">Comentarios</string>
+    <string name="reporte_coming_soon">Próximamente</string>
+    <string name="reporte_empty">Sin reportes</string>
+    <string name="reporte_publication_fallback">Publicación</string>
+    <string name="reporte_user_fallback">Usuario</string>
+    <string name="reporte_status_pending">Pendiente</string>
+    <string name="reporte_status_resolved">Resuelto</string>
+    <string name="reporte_status_discarded">Descartado</string>
+    <string name="reporte_icon_warning">⚠️</string>
+    <string name="reporte_btn_review">Revisar caso →</string>
+
+    <!-- Revisar Caso Screen -->
+    <string name="revisar_title">Revisar caso</string>
+    <string name="revisar_cd_back">Volver</string>
+    <string name="revisar_report_not_found">Reporte no encontrado</string>
+    <string name="revisar_publication_no_title">Sin título</string>
+    <string name="revisar_user_fallback">Usuario</string>
+    <string name="revisar_section_description">Descripción</string>
+    <string name="revisar_btn_view_original">Ver publicación original</string>
+    <string name="revisar_section_report_details">⚠️  Detalles del reporte</string>
+    <string name="revisar_main_reason">Razón principal</string>
+    <string name="revisar_report_description">Descripción del reporte</string>
+    <string name="revisar_date_label">Fecha: %1$s</string>
+    <string name="revisar_section_comments">💬  Comentarios del denunciante</string>
+    <string name="revisar_time_ago">Hace 2 días</string>
+    <string name="revisar_section_history">🕓  Historial de reportes previos</string>
+    <string name="revisar_status_warned">Advertido</string>
+    <string name="revisar_status_discarded">Descartado</string>
+    <string name="revisar_status_resolved">Resuelto</string>
+    <string name="revisar_btn_discard">Descartar</string>
+    <string name="revisar_btn_delete_post">Eliminar post</string>
+    <string name="revisar_btn_send_warning">Enviar advertencia</string>
+    <string name="revisar_btn_suspend_permanent">Suspender usuario permanentemente</string>
+
+    <!-- Reportes ViewModel -->
+    <string name="reportes_historial_warning_description">Advertencia por descripción engañosa</string>
+    <string name="reportes_historial_warning_status">Advertido</string>
+    <string name="reportes_historial_discarded_description">Reporte descartado (sin evidencia)</string>
+    <string name="reportes_historial_discarded_status">Descartado</string>
+    <string name="reportes_historial_date1">2026-04-01</string>
+    <string name="reportes_historial_date2">2026-03-15</string>
+
+    <!-- Revision Screen -->
+    <string name="revision_title">Revisar publicación</string>
+    <string name="revision_cd_back">Volver</string>
+    <string name="revision_section_description">Descripción</string>
+    <string name="revision_section_published_by">Publicado por</string>
+    <string name="revision_btn_reject">Rechazar</string>
+    <string name="revision_btn_approve">Aprobar</string>
+    <string name="revision_btn_send_rejection">Enviar rechazo</string>
+    <string name="revision_btn_cancel">Cancelar</string>
+    <string name="revision_bottom_sheet_title">Motivo de rechazo</string>
+    <string name="revision_placeholder_reason">Especifica el motivo (opcional)...</string>
+    <string name="revision_reason_inappropriate_language">Lenguaje inapropiado</string>
+    <string name="revision_reason_false_data">Datos falsos</string>
+    <string name="revision_reason_illegal_sale">Venta ilegal</string>
+    <string name="revision_reason_animal_abuse">Maltrato animal</string>
+    <string name="revision_user_fallback">Usuario</string>
+    <string name="revision_location_fallback">Armenia, Colombia</string>
+    <string name="revision_cd_verified">Verificado</string>
+    <string name="revision_age_label">🎂 %1$d año%2$s</string>
+    <string name="revision_type_label">🐾 %1$s</string>
+    <string name="revision_size_label">📏 %1$s</string>
+    <string name="revision_gender_label">%1$s %2$s</string>
+    <string name="revision_breed_label">🏷️ %1$s</string>
+    <string name="revision_vaccinated">💉 Vacunado</string>
+    <string name="revision_not_vaccinated">⚠️ Sin vacunas</string>
+    <string name="revision_location_label">📍 %1$s</string>
+
+    <!-- Aprobada Screen -->
+    <string name="aprobada_title">¡Publicación aprobada!</string>
+    <string name="aprobada_description">La publicación ya es visible para todos los usuarios de la plataforma.</string>
+    <string name="aprobada_btn_back_to_pending">Volver a pendientes</string>
+
+    <!-- Accion Usuario Dialog -->
+    <string name="accion_warning_title">Enviar advertencia</string>
+    <string name="accion_warning_subtitle">al usuario</string>
+    <string name="accion_warning_reason_title">Motivo de la advertencia</string>
+    <string name="accion_warning_reason_inappropriate">Lenguaje inapropiado</string>
+    <string name="accion_warning_reason_false_info">Información falsa</string>
+    <string name="accion_warning_reason_suspicious">Conducta sospechosa</string>
+    <string name="accion_warning_reason_spam">Spam</string>
+    <string name="accion_warning_reason_other">Otro</string>
+    <string name="accion_warning_additional_message">Mensaje adicional (opcional)</string>
+    <string name="accion_warning_placeholder_message">Escribe un mensaje para el usuario...</string>
+    <string name="accion_warning_send">Enviar advertencia</string>
+    <string name="accion_cancel">Cancelar</string>
+    <string name="accion_temporal_title">Suspender usuario</string>
+    <string name="accion_temporal_subtitle">temporal</string>
+    <string name="accion_temporal_duration_title">Duración de la suspensión</string>
+    <string name="accion_temporal_duration_24h">24 horas</string>
+    <string name="accion_temporal_duration_3d">3 días</string>
+    <string name="accion_temporal_duration_7d">7 días</string>
+    <string name="accion_temporal_reason_title">Motivo</string>
+    <string name="accion_temporal_reason_recidivism">Reincidencia</string>
+    <string name="accion_temporal_reason_confirmed_reports">Reportes confirmados</string>
+    <string name="accion_temporal_reason_inappropriate">Lenguaje inapropiado</string>
+    <string name="accion_temporal_reason_misuse">Uso indebido</string>
+    <string name="accion_temporal_additional_details">Detalles adicionales (opcional)</string>
+    <string name="accion_temporal_placeholder_details">Añade contexto adicional...</string>
+    <string name="accion_temporal_suspend">Suspender temporalmente</string>
+    <string name="accion_permanent_title">Suspender usuario</string>
+    <string name="accion_permanent_subtitle">permanentemente</string>
+    <string name="accion_permanent_reason_title">Motivo de la expulsión</string>
+    <string name="accion_permanent_reason_animal_abuse">Maltrato animal confirmado</string>
+    <string name="accion_permanent_reason_illegal_sale">Venta ilegal</string>
+    <string name="accion_permanent_reason_fraud">Estafa</string>
+    <string name="accion_permanent_reason_impersonation">Suplantación</string>
+    <string name="accion_permanent_justification_title">Justificación obligatoria</string>
+    <string name="accion_permanent_placeholder_justification">Describe el motivo...</string>
+    <string name="accion_permanent_confirmation">Entiendo que esta acción es irreversible</string>
+    <string name="accion_permanent_suspend">Suspender permanentemente</string>
+
+    <!-- Usuarios Screen -->
+    <string name="usuarios_title">Gestión de usuarios</string>
+    <string name="usuarios_registered_count">%1$d usuarios registrados</string>
+    <string name="usuarios_search_placeholder">Buscar por nombre o email...</string>
+    <string name="usuarios_view_profile">Ver perfil</string>
+    <string name="usuarios_profile_title">Perfil de usuario</string>
+    <string name="usuarios_back">Volver</string>
+    <string name="usuarios_user_not_found">Usuario no encontrado</string>
+    <string name="usuarios_trust_level">Nivel de confianza: ⭐ 4.8</string>
+    <string name="usuarios_pets">Mascotas</string>
+    <string name="usuarios_posts">Posts</string>
+    <string name="usuarios_reports">Reportes</string>
+    <string name="usuarios_contact_data">Datos de contacto</string>
+    <string name="usuarios_not_registered">No registrado</string>
+    <string name="usuarios_role">Rol: %1$s</string>
+    <string name="usuarios_send_warning">Enviar advertencia</string>
+    <string name="usuarios_suspend_temporal">Suspender temporal</string>
+    <string name="usuarios_suspend_permanent">Suspender permanente</string>
+    <string name="usuarios_status_active">Activo</string>
+    <string name="usuarios_status_suspended">Suspendido</string>
+    <string name="usuarios_status_inactive">Inactivo</string>
+
+    <!-- Comentario Screen -->
+    <string name="comentario_title">Comentarios</string>
+    <string name="comentario_back">Volver</string>
+    <string name="comentario_no_comments">Sin comentarios aún</string>
+    <string name="comentario_placeholder">Escribe un comentario...</string>
+    <string name="comentario_send">Enviar</string>
+    <string name="comentario_user_photo">Foto usuario</string>
+    <string name="comentario_fallback_user">Usuario</string>
+
+    <!-- Configuracion Screen -->
+    <string name="configuracion_title">Configuración</string>
+    <string name="configuracion_notifications">Notificaciones</string>
+    <string name="configuracion_general">General</string>
+    <string name="configuracion_nearby_pets">Mascotas cercanas</string>
+    <string name="configuracion_comments">Comentarios</string>
+    <string name="configuracion_requests">Solicitudes</string>
+    <string name="configuracion_location">Ubicación</string>
+    <string name="configuracion_search_radius">Radio de búsqueda</string>
+    <string name="configuracion_km">%1$d km</string>
+    <string name="configuracion_change_location">Cambiar ubicación</string>
+
+    <!-- Feed Screen -->
+    <string name="feed_profile_photo">Foto de perfil</string>
+    <string name="feed_search">Buscar</string>
+    <string name="feed_notifications">Notificaciones</string>
+    <string name="feed_search_placeholder">Buscar por título o descripción...</string>
+    <string name="feed_clear">Limpiar</string>
+    <string name="feed_greeting">Hola, %1$s</string>
+    <string name="feed_no_publications">No hay publicaciones</string>
+    <string name="feed_filter_all">Todos</string>
+    <string name="feed_filter_adoption">Adopción</string>
+    <string name="feed_filter_lost">Perdidos</string>
+    <string name="feed_filter_found">Encontrados</string>
+    <string name="feed_no_location">Sin ubicación</string>
+    <string name="feed_unknown_user">Usuario</string>
+
+    <!-- Password Recovery Screen -->
+    <string name="passwordrecovery_success_message">Link de recuperación enviado</string>
+    <string name="passwordrecovery_back">Volver</string>
+    <string name="passwordrecovery_title">Recuperar contraseña</string>
+    <string name="passwordrecovery_email_label">Correo electrónico</string>
+    <string name="passwordrecovery_send_button">Enviar link   ➜</string>
+    <string name="passwordrecovery_email_required">Ingresa tu correo electrónico</string>
+    <string name="passwordrecovery_email_invalid">Correo inválido</string>
+
+    <!-- Password Reset Screen -->
+    <string name="passwordreset_success_message">Contraseña actualizada correctamente</string>
+    <string name="passwordreset_back">Volver</string>
+    <string name="passwordreset_title">Restablecer contraseña</string>
+    <string name="passwordreset_description">Ingresa el código de 5 dígitos enviado a tu correo</string>
+    <string name="passwordreset_new_password_label">Nueva contraseña</string>
+    <string name="passwordreset_confirm_button">Confirmar cambio</string>
+    <string name="passwordreset_code_required">Ingresa el código completo</string>
+    <string name="passwordreset_password_min_length">Mínimo 6 caracteres</string>
+    <string name="passwordreset_code_invalid">Código incorrecto</string>
+
+    <!-- Home Screen -->
+    <string name="home_logo_description">Logo PawPaws</string>
+    <string name="home_welcome">Bienvenido</string>
+    <string name="home_description">Somos PawPaws aquí podrás encontrar mascotas en adopción, reportar perdidos y ayudar a tu comunidad.</string>
+    <string name="home_arrow_description">➜</string>
+
+    <!-- Login Screen -->
+    <string name="login_banner_description">Banner PawPaws</string>
+    <string name="login_title">Iniciar sesión</string>
+    <string name="login_email_label">Correo electrónico</string>
+    <string name="login_password_label">Contraseña</string>
+    <string name="login_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="login_button_text">Iniciar sesión   ➜</string>
+    <string name="login_no_account">¿No tienes cuenta? </string>
+    <string name="login_register">Regístrate</string>
+    <string name="login_invalid_email">Correo inválido</string>
+    <string name="login_min_password">Mínimo 6 caracteres</string>
+    <string name="login_wrong_credentials">Credenciales incorrectas</string>
+
+    <!-- Chat Screen -->
+    <string name="chat_back_description">Volver</string>
+    <string name="chat_video_description">Video</string>
+    <string name="chat_call_description">Llamar</string>
+    <string name="chat_online">En línea</string>
+    <string name="chat_today">HOY</string>
+    <string name="chat_message_placeholder">Escribe un mensaje...</string>
+    <string name="chat_send_description">Enviar</string>
+
+    <!-- Mensajes Screen -->
+    <string name="mensajes_title">Mensajes</string>
+    <string name="mensajes_tab_activos">Activos</string>
+    <string name="mensajes_tab_sin_leer">Sin leer</string>
+    <string name="mensajes_tab_archivados">Archivados</string>
+    <string name="mensajes_empty_state">Sin mensajes</string>
+    <string name="mensajes_time_now">Ahora</string>
+    <string name="mensajes_time_minutes">%1$dm</string>
+    <string name="mensajes_cd_nuevo_mensaje">Nuevo mensaje</string>
+
+    <!-- PublicacionCard Screen -->
+    <string name="publicacion_card_ciudad">📍 %1$s</string>
+    <string name="publicacion_card_por">por %1$s</string>
+    <string name="publicacion_card_comentar">Comentar</string>
+    <string name="publicacion_card_editar">Editar</string>
+    <string name="publicacion_card_eliminar">Eliminar</string>
+    <string name="publicacion_card_tipo_adopcion">Adopción</string>
+    <string name="publicacion_card_tipo_perdido">Perdido</string>
+    <string name="publicacion_card_tipo_encontrado">Encontrado</string>
+    <string name="publicacion_card_estado_activa">Activa</string>
+    <string name="publicacion_card_estado_pausada">Pausada</string>
+    <string name="publicacion_card_estado_pendiente">Pendiente</string>
+
+    <!-- PublicacionDetailScreen -->
+    <string name="publicacion_detail_solicitud_enviada_exito">Solicitud enviada correctamente</string>
+    <string name="publicacion_detail_desc_imagen_principal">Imagen principal</string>
+    <string name="publicacion_detail_desc_volver">Volver</string>
+    <string name="publicacion_detail_mascota_tipo">🐾 %1$s</string>
+    <string name="publicacion_detail_mascota_tamanio">📏 %1$s</string>
+    <string name="publicacion_detail_mascota_genero_macho">♂ Macho</string>
+    <string name="publicacion_detail_mascota_genero_hembra">♀ Hembra</string>
+    <string name="publicacion_detail_mascota_raza">🏷️ %1$s</string>
+    <string name="publicacion_detail_mascota_edad">🎂 %1$d %2$s</string>
+    <string name="publicacion_detail_anio">año</string>
+    <string name="publicacion_detail_anios">años</string>
+    <string name="publicacion_detail_mascota_vacunado">💉 Vacunado</string>
+    <string name="publicacion_detail_mascota_no_vacunado">⚠️ Sin vacunas</string>
+    <string name="publicacion_detail_seccion_ubicacion">Ubicación</string>
+    <string name="publicacion_detail_ubicacion_direccion">📍 %1$s</string>
+    <string name="publicacion_detail_ubicacion_default">Armenia, Colombia</string>
+    <string name="publicacion_detail_ciudad_default">Armenia</string>
+    <string name="publicacion_detail_lat_lng">Lat: %1$.2f  Lng: %2$.2f</string>
+    <string name="publicacion_detail_seccion_sobre_mascota">Sobre %1$s</string>
+    <string name="publicacion_detail_seccion_sobre_default">la mascota</string>
+    <string name="publicacion_detail_seccion_publicado_por">Publicado por</string>
+    <string name="publicacion_detail_desc_foto_propietario">Foto propietario</string>
+    <string name="publicacion_detail_usuario_default">Usuario</string>
+    <string name="publicacion_detail_seccion_comentarios">Comentarios</string>
+    <string name="publicacion_detail_comentario_placeholder">Escribe un comentario...</string>
+    <string name="publicacion_detail_desc_enviar">Enviar</string>
+    <string name="publicacion_detail_sin_comentarios">Sé el primero en comentar</string>
+    <string name="publicacion_detail_boton_importante">Es importante</string>
+    <string name="publicacion_detail_boton_adoptar">Quiero adoptar</string>
+    <string name="publicacion_detail_dialogo_titulo">Enviar solicitud</string>
+    <string name="publicacion_detail_dialogo_instruccion">Escribe un mensaje para el propietario:</string>
+    <string name="publicacion_detail_dialogo_placeholder">Cuéntanos por qué quieres adoptar...</string>
+    <string name="publicacion_detail_dialogo_enviar">Enviar</string>
+    <string name="publicacion_detail_dialogo_cancelar">Cancelar</string>
+    <string name="publicacion_detail_desc_foto_usuario">Foto usuario</string>
+
+    <!-- PublicarScreen Strings -->
+    <string name="publicar_success_dialog_title">Mi publicación</string>
+    <string name="publicar_content_desc_close">Cerrar</string>
+    <string name="publicar_success_updated">¡Publicación actualizada!</string>
+    <string name="publicar_success_sent">¡Publicación enviada!</string>
+    <string name="publicar_success_message">Tu publicación está pendiente de verificación por un moderador. Te avisaremos pronto.</string>
+    <string name="publicar_button_home">Volver al inicio</string>
+    <string name="publicar_button_my_posts">Ver mis publicaciones</string>
+    <string name="publicar_title_edit">Editar publicación</string>
+    <string name="publicar_title_new">Nueva publicación</string>
+    <string name="publicar_content_desc_back">Volver</string>
+    <string name="publicar_type_adopcion">Adopción</string>
+    <string name="publicar_type_perdido">Perdido</string>
+    <string name="publicar_type_encontrado">Encontrado</string>
+    <string name="publicar_rejected_title">Publicación rechazada</string>
+    <string name="publicar_auto_photo_title">Foto automática</string>
+    <string name="publicar_auto_photo_desc">Se asignará una imagen representativa\nsegún el tipo de mascota y publicación.</string>
+    <string name="publicar_section_basic_info">Información básica</string>
+    <string name="publicar_label_title">Título de la publicación</string>
+    <string name="publicar_placeholder_title">Ej. Perrito rescatado en busca de hogar</string>
+    <string name="publicar_label_pet_name">Nombre de la mascota</string>
+    <string name="publicar_placeholder_pet_name">Ej. Max</string>
+    <string name="publicar_label_category">Categoría</string>
+    <string name="publicar_label_size">Tamaño</string>
+    <string name="publicar_size_small">Pequeño</string>
+    <string name="publicar_size_medium">Mediano</string>
+    <string name="publicar_size_large">Grande</string>
+    <string name="publicar_label_breed">Raza</string>
+    <string name="publicar_placeholder_breed">Ej. Labrador</string>
+    <string name="publicar_label_age">Edad (años)</string>
+    <string name="publicar_placeholder_age">Ej. 2</string>
+    <string name="publicar_label_gender">Género</string>
+    <string name="publicar_gender_male">Macho</string>
+    <string name="publicar_gender_female">Hembra</string>
+    <string name="publicar_label_description">Descripción</string>
+    <string name="publicar_placeholder_description">Describe el carácter, historia y necesidades del animal...</string>
+    <string name="publicar_label_vaccines">¿Vacunas al día?</string>
+    <string name="publicar_section_location">Ubicación</string>
+    <string name="publicar_location_default">Armenia, Quindío</string>
+    <string name="publicar_button_change_location">Cambiar ubicación</string>
+    <string name="publicar_button_save">Guardar cambios</string>
+    <string name="publicar_button_publish">Publicar</string>
+    <string name="publicar_dropdown_default">Seleccione...</string>
+
+    <!-- ViewModel Errors -->
+    <string name="publicar_error_title_required">El título es requerido</string>
+    <string name="publicar_error_name_required">El nombre es requerido</string>
+    <string name="publicar_error_desc_required">La descripción es requerida</string>
+    <string name="publicar_error_age_invalid">Edad inválida</string>
+    <string name="publicar_simulated_rejection">Las imágenes no cumplen con las políticas de la plataforma.</string>
+
+    <!-- NotificacionesScreen -->
+    <string name="notificaciones_title">Notificaciones</string>
+    <string name="notificaciones_back">Volver</string>
+    <string name="notificaciones_empty">Sin notificaciones</string>
+    <string name="notificaciones_fake_title_1">Tu publicación ha sido aprobada</string>
+    <string name="notificaciones_fake_desc_1">Ahora otros usuarios pueden ver a tu mascota rescatada y contactarte.</string>
+    <string name="notificaciones_fake_time_1">hace 5 min</string>
+    <string name="notificaciones_fake_title_2">Mascota perdida cercana</string>
+    <string name="notificaciones_fake_desc_2">Se ha reportado un perro extraviado a 500m de tu ubicación actual.</string>
+    <string name="notificaciones_fake_time_2">ayer</string>
+
+    <!-- PerfilScreen Strings -->
+    <string name="perfil_cd_foto_perfil">Foto de perfil</string>
+    <string name="perfil_usuario_default">Usuario</string>
+    <string name="perfil_seccion_metricas">Métricas de publicaciones</string>
+    <string name="perfil_metrica_activas">Activas</string>
+    <string name="perfil_metrica_pendientes">Pendientes</string>
+    <string name="perfil_metrica_completadas">Completadas</string>
+    <string name="perfil_metrica_rechazadas">Rechazadas</string>
+    <string name="perfil_btn_solicitudes_recibidas">Solicitudes recibidas</string>
+    <string name="perfil_btn_mis_solicitudes">Mis solicitudes</string>
+    <string name="perfil_seccion_insignias">Insignias</string>
+    <string name="perfil_btn_ver_todas">Ver todas</string>
+    <string name="perfil_ver_estadisticas">Ver estadísticas completas</string>
+    <string name="perfil_seccion_publicaciones">Mis publicaciones</string>
+    <string name="perfil_empty_title">Aún no tienes publicaciones</string>
+    <string name="perfil_empty_desc">Crea tu primera publicación y ayuda a una mascota a encontrar hogar 🐶</string>
+    <string name="perfil_btn_crear_publicacion">Crear publicación</string>
+    <string name="perfil_menu_editar_perfil">Editar perfil</string>
+    <string name="perfil_menu_configuracion">Configuración</string>
+    <string name="perfil_menu_cerrar_sesion">Cerrar sesión</string>
+    <string name="perfil_menu_eliminar_cuenta">Eliminar cuenta</string>
+    <string name="perfil_dialog_edit_title">Editar perfil</string>
+    <string name="perfil_label_nombre">Nombre</string>
+    <string name="perfil_label_telefono">Teléfono</string>
+    <string name="perfil_btn_guardar">Guardar</string>
+    <string name="perfil_btn_cancelar">Cancelar</string>
+    <string name="perfil_dialog_delete_pub_title">Eliminar publicación</string>
+    <string name="perfil_dialog_delete_pub_msg">¿Seguro que deseas eliminar \"%1$s\"?</string>
+    <string name="perfil_btn_eliminar">Eliminar</string>
+    <string name="perfil_dialog_logout_title">Cerrar sesión</string>
+    <string name="perfil_dialog_logout_msg">¿Seguro que deseas salir?</string>
+    <string name="perfil_btn_salir">Salir</string>
+    <string name="perfil_dialog_delete_acc_title">Eliminar cuenta</string>
+    <string name="perfil_dialog_delete_acc_msg">¿Estás seguro de que deseas eliminar tu cuenta?</string>
+    <string name="perfil_dialog_delete_acc_alert">Esta acción es permanente y no se puede deshacer.</string>
+    <string name="perfil_estado_proceso">EN PROCESO</string>
+    <string name="perfil_estado_pendiente">PENDIENTE</string>
+    <string name="perfil_estado_completado">COMPLETADO</string>
+    <string name="perfil_menu_editar">Editar</string>
+    <string name="perfil_menu_eliminar">Eliminar</string>
+    <string name="perfil_cd_opciones">Opciones</string>
+    <string name="perfil_solicitud_id">Solicitud #%1$s</string>
+    <string name="perfil_solicitud_pendiente">Pendiente</string>
+    <string name="perfil_solicitud_aceptada">Aceptada</string>
+    <string name="perfil_solicitud_rechazada">Rechazada</string>
+    <string name="perfil_icon_pets">Dog Lover</string>
+    <string name="perfil_icon_favorite">Protector</string>
+    <string name="perfil_icon_volunteer">Salvador</string>
+    <string name="perfil_icon_star">Héroe</string>
+
+
+    <!-- PerfilViewModel Strings -->
+    <string name="perfil_error_cargar">Error al cargar el perfil</string>
+    <string name="perfil_error_nombre_req">El nombre es requerido</string>
+    <string name="perfil_error_eliminar_pub">Error al eliminar la publicación</string>
+    <string name="perfil_error_eliminar_acc">No se pudo eliminar la cuenta</string>
+    <string name="perfil_ubicacion_default">Sin ubicación</string>
+
+    <!-- RegisterScreen Strings -->
+    <string name="register_success_message">Cuenta creada correctamente</string>
+    <string name="register_cd_banner">Banner PawPaws</string>
+    <string name="register_cd_back">Volver</string>
+    <string name="register_title">Crea tu cuenta</string>
+    <string name="register_label_name">Nombre completo</string>
+    <string name="register_label_email">Correo electrónico</string>
+    <string name="register_label_password">Contraseña</string>
+    <string name="register_label_confirm_password">Confirmar contraseña</string>
+    <string name="register_label_city">Busca tu ciudad o código postal</string>
+    <string name="register_link_location">Usar mi ubicación actual</string>
+    <string name="register_location_not_implemented">Función de ubicación no implementada aún</string>
+    <string name="register_button_text">Crear cuenta   ➜</string>
+    <string name="register_error_name_required">El nombre es requerido</string>
+    <string name="register_error_email_invalid">Correo inválido</string>
+    <string name="register_error_password_min">Mínimo 6 caracteres</string>
+    <string name="register_error_passwords_mismatch">Las contraseñas no coinciden</string>
+
+    <!-- MisSolicitudesScreen Strings -->
+    <string name="mis_solicitudes_title">Mis solicitudes</string>
+    <string name="mis_solicitudes_back">Volver</string>
+    <string name="mis_solicitudes_tab_pending">Pendientes</string>
+    <string name="mis_solicitudes_tab_accepted">Aceptadas</string>
+    <string name="mis_solicitudes_tab_rejected">Rechazadas</string>
+    <string name="mis_solicitudes_empty">Sin solicitudes</string>
+    <string name="mis_solicitudes_pub_fallback">Publicación</string>
+    <string name="mis_solicitudes_location_time">Armenia, Colombia · Hace 2 días</string>
+    <string name="mis_solicitudes_published_by">PUBLICADO POR</string>
+    <string name="mis_solicitudes_user_fallback">Usuario</string>
+    <string name="mis_solicitudes_user_stats">Nivel 5 · Reputación 4.8/5</string>
+    <string name="mis_solicitudes_status_pending">Solicitud Pendiente</string>
+    <string name="mis_solicitudes_status_accepted">Solicitud Aceptada</string>
+    <string name="mis_solicitudes_status_rejected">Solicitud Rechazada</string>
+    <string name="mis_solicitudes_btn_chat">Ir a conversación</string>
+
+    <!-- SolicitudesRecibidasScreen Strings -->
+    <string name="solicitudes_recibidas_title">Solicitudes recibidas</string>
+    <string name="solicitudes_recibidas_back">Volver</string>
+    <string name="solicitudes_recibidas_tab_pending">Pendientes</string>
+    <string name="solicitudes_recibidas_tab_accepted">Aceptadas</string>
+    <string name="solicitudes_recibidas_tab_rejected">Rechazadas</string>
+    <string name="solicitudes_recibidas_empty">Sin solicitudes</string>
+    <string name="solicitudes_recibidas_pub_fallback">Publicación</string>
+    <string name="solicitudes_recibidas_status_pending">Pendiente</string>
+    <string name="solicitudes_recibidas_status_accepted">Aceptada</string>
+    <string name="solicitudes_recibidas_status_rejected">Rechazada</string>
+    <string name="solicitudes_recibidas_user_fallback">Usuario</string>
+    <string name="solicitudes_recibidas_user_level">Protector Lvl 3</string>
+    <string name="solicitudes_recibidas_rating"> 4.8</string>
+    <string name="solicitudes_recibidas_btn_reject">Rechazar</string>
+    <string name="solicitudes_recibidas_btn_accept">Aceptar</string>
+
+    <!-- MapaScreen Strings -->
+    <string name="mapa_label_simulado">Mapa simulado</string>
+    <string name="mapa_default_city">Armenia, Quindío</string>
+    <string name="mapa_search_placeholder">Buscar ubicación...</string>
+    <string name="mapa_cd_my_location">Mi ubicación</string>
+    <string name="mapa_cd_close">Cerrar</string>
+    <string name="mapa_pub_fallback">Publicación</string>
+    <string name="mapa_location_prefix">📍 %1$s</string>
+    <string name="mapa_city_default">Armenia</string>
+    <string name="mapa_type_adopcion">Adopción</string>
+    <string name="mapa_type_perdido">Perdido</string>
+    <string name="mapa_type_encontrado">Encontrado</string>
+
 </resources>
